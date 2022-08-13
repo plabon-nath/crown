@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
+    <x-auth-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <x-auth-logo></x-auth-logo>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        <x-jet-validation-errors class="mb-4" />
+        <x-jet-validation-errors class="mb-4"></x-jet-validation-errors>
 
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
@@ -30,5 +30,5 @@
                 </x-jet-button>
             </div>
         </form>
-    </x-jet-authentication-card>
+    </x-auth-card>
 </x-guest-layout>

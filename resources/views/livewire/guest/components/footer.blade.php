@@ -7,7 +7,7 @@
 
                 <div class="w-full -mx-6 lg:w-2/5">
                     <div class="px-6">
-                        <x-jet-application-logo class="w-2/4 drop-shadow-xl"/>
+                        <x-application-mark class="w-2/4 drop-shadow-xl"/>
 
                         <p class="max-w-md mt-2 text-gray-500 dark:text-gray-400">
                             Takeaway Restaurant in Southend-on-Sea, UK

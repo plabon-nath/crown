@@ -17,7 +17,7 @@ class isUserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return Auth::check() && Auth::user()->rule === '1'
+        return Auth::check() && Auth::user()->role === '1'
             ?  $next($request)
             : redirect()->route('login');
     }

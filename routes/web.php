@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+ * Google Authentication
+ */
+Route::get('auth/google', GoogleController::class.'@redirectToGoogle')->name('google.login');
+Route::get('auth/google/callback', GoogleController::class.'@handleGoogleCallback');
+
+
 Route::get('/', \App\Http\Livewire\Guest\Pages\Home::class)->name('home');
 Route::get('/menu', \App\Http\Livewire\Guest\Pages\Menu::class)->name('menu');
-
 
 Route::group([
     'middleware'=>[ 'auth:sanctum','admin',config('jetstream.auth_session'),'verified'],
@@ -25,4 +32,10 @@ Route::group([
     Route::get('/dashboard', App\Http\Livewire\Admin\Pages\Index::class)->name('dashboard');
     Route::get('/zip_code', App\Http\Livewire\Admin\Pages\ZipCode::class)->name('zip_code');
     Route::get('/category', App\Http\Livewire\Admin\Pages\Category::class)->name('category');
+
+    Route::get('/food-items', App\Http\Livewire\Admin\Pages\Items\Index::class)->name('item.index');
+    Route::get('/food-item/create', App\Http\Livewire\Admin\Pages\Items\Create::class)->name('item.create');
+    Route::get('/food-item/{item}/edit', App\Http\Livewire\Admin\Pages\Items\Edit::class)->name('item.edit');
+
+    Route::get('/attributes', App\Http\Livewire\Admin\Pages\Attribute::class)->name('attributes');
 });

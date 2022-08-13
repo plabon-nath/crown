@@ -13,7 +13,6 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FF5C5C">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#FF5C5C">
 
-
     <title>{{ config('app.name')}}</title>
 
     <!-- Styles -->
@@ -35,7 +34,6 @@
         <main class="flex-1 overflow-x-hidden overflow-y-auto">
             <div class="container mx-auto px-6 py-8">
                 {{ $slot }}
-
             </div>
 
 

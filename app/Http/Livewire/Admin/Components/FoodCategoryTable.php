@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Components;
 
 
+use App\Models\CategoryNote;
 use App\Models\FoodCategory;
 use Mediconesystems\LivewireDatatables\Action;
 use Mediconesystems\LivewireDatatables\BooleanColumn;
@@ -13,13 +14,17 @@ use Mediconesystems\LivewireDatatables\LabelColumn;
 class FoodCategoryTable extends LivewireDatatable
 {
 
+    /**
+     * @var string[]
+     */
     protected $listeners = ['refreshCategory' => '$refresh'];
+
     public function builder(): \Illuminate\Database\Eloquent\Builder
     {
-        return FoodCategory::query();
+        return FoodCategory::query()->leftJoin('category_notes', 'food_category_id', 'food_categories.id');
     }
 
-    public function columns()
+    public function columns(): array
     {
         return [
 
@@ -30,10 +35,13 @@ class FoodCategoryTable extends LivewireDatatable
             LabelColumn::name('description')
                 ->searchable()
                 ->editable(),
+           Column::name('category_notes.note')
+               ->filterable(),
             BooleanColumn::name('status')
                 ->filterable()
                 ->editable()
-            ->contentAlignRight(),
+                ->width(5)
+                ->contentAlignRight(),
         ];
     }
 

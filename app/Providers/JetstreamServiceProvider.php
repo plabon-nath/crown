@@ -47,3 +47,4 @@ class JetstreamServiceProvider extends ServiceProvider
         ]);
     }
 }
+

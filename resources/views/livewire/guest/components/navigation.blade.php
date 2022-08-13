@@ -6,7 +6,7 @@
             <!-- Logo -->
             <div class="shrink-0 flex items-center">
                 <a href="{{ route('home') }}">
-                    <x-jet-application-mark class="block h-9 w-auto  leading-loose"/>
+                    <x-application-mark class="block h-9 w-auto leading-loose"></x-application-mark>
                 </a>
             </div>
 
@@ -81,24 +81,24 @@
                  x-transition:leave="transition ease-in duration-300"
                  x-transition:leave-start="opacity-100 transform translate-x-0"
                  x-transition:leave-end="opacity-0 transform -translate-x-5"
-                 class="sm:hidden fixed h-screen top-0 left-0 bottom-0 w-60 bg-gray-100 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-80 shadow-lg">
+                 class="sm:hidden fixed h-screen overflow-y-auto top-0 left-0 bottom-0 pb-6 w-60 bg-gray-100 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-80 shadow-lg">
 
 
                 <div class="h-full flex justify-center items-center flex-col backdrop-filter backdrop-blur ">
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('home') }}">
-                            <x-jet-application-mark class="block h-20 w-auto  leading-loose"></x-jet-application-mark>
+                            <x-application-mark class="block h-20 w-auto leading-loose"></x-application-mark>
                         </a>
                     </div>
-                    <x-jet-nav-link href="{{__(route('home'))}}" @click="navOpen = false"
-                                    :active="request()->routeIs('home')">
+                    <x-nav-link href="{{__(route('home'))}}" @click="navOpen = false"
+                                :active=" request()->routeIs('home')">
                         {{__('Home')}}
-                    </x-jet-nav-link>
+                    </x-nav-link>
 
-                    <x-jet-nav-link href="{{ route('menu') }}" @click="navOpen = false"
-                                    :active="request()->routeIs('menu')">
+                    <x-nav-link href="{{ route('menu') }}" @click="navOpen = false"
+                                :active=" request()->routeIs('menu')">
                         {{ __('Menu') }}
-                    </x-jet-nav-link>
+                    </x-nav-link>
                     <a href="#" @click="active = 'mexican'; navOpen = false">
                         <h1 class="p-3 hover:text-indigo-400 transition duration-200"
                             :class="active == 'mexican'?'border-b-2 border-indigo-400 text-indigo-400':''">Mexican
@@ -144,6 +144,85 @@
                         </h1>
                     </a>
 
+
+                    <!-- Settings Dropdown -->
+                    @if( Auth()->user())
+                        <div class="ml-3 relative">
+                            <x-jet-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                        <button
+                                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                            <img class="h-8 w-8 rounded-full object-cover"
+                                                 src="{{ Auth::user()->profile_photo_url }}"
+                                                 alt="{{ Auth::user()->name }}"/>
+                                        </button>
+                                    @else
+                                        <span class="inline-flex rounded-md">
+                                    <button type="button"
+                                            class="inline-flex items-center px-3 py-2 leading-4 font-medium rounded-md hover:text-red-400 focus:outline-none transition">
+                                        {{ Auth::user()->name }}
+
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                  clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </span>
+                                    @endif
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Manage Account') }}
+                                    </div>
+
+                                    <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                        {{ __('Profile') }}
+                                    </x-jet-dropdown-link>
+
+                                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                        <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
+                                            {{ __('API Tokens') }}
+                                        </x-jet-dropdown-link>
+                                    @endif
+                                    @if ( Auth()->user()->isAdmin())
+                                        <x-jet-dropdown-link href="{{ route('admin.dashboard') }}">
+                                            {{ __('Dashboard') }}
+                                        </x-jet-dropdown-link>
+
+                                    @endif
+
+                                    <div class="border-t border-gray-100"></div>
+
+                                    <!-- Authentication -->
+                                    <form method="POST" action="{{ route('logout') }}" x-data>
+                                        @csrf
+
+                                        <x-jet-dropdown-link href="{{ route('logout') }}"
+                                                             @click.prevent="$root.submit();">
+                                            {{ __('Log Out') }}
+                                        </x-jet-dropdown-link>
+                                    </form>
+                                </x-slot>
+                            </x-jet-dropdown>
+                        </div>
+                    @else
+                        <x-nav-link href="{{ route('login') }}" class="flex justify-center items-center gap-2"
+                                    :active="request()->routeIs('login')">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-180" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+                            {{__('Sign up') }}
+                        </x-nav-link>
+                    @endif
+
+
                 </div>
             </div>
 
@@ -169,29 +248,21 @@
                 </button>
 
                 <!-- nav Links -->
-                <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                     {{__('Home')}}
-                </x-jet-nav-link>
-                <x-jet-nav-link href="{{ route('menu') }}" :active="request()->routeIs('menu')">
+                </x-nav-link>
+                <x-nav-link href="{{ route('menu') }}" :active="request()->routeIs('menu')">
                     {{ __('Menu') }}
-                </x-jet-nav-link>
-                <a href="#" @click="active = 'profile'">
-                    <h1 class="p-3 font-medium hover:text-indigo-400 transition duration-200"
-                        :class="active == 'profile'?'border-b-2 border-indigo-400 text-indigo-400':''">Mexican</h1>
-                </a>
-                <a href="#" @click="active = 'profile'">
-                    <h1 class="p-3 font-medium hover:text-indigo-400 transition duration-200"
-                        :class="active == 'profile'?'border-b-2 border-indigo-400 text-indigo-400':''">Italian</h1>
-                </a>
-                <a href="#" @click="active = 'profile'">
-                    <h1 class="p-3 font-medium hover:text-indigo-400 transition duration-200"
-                        :class="active == 'profile'?'border-b-2 border-indigo-400 text-indigo-400':''">Indian</h1>
-                </a>
+                </x-nav-link>
+                <x-nav-link href="#" :active="request()->routeIs('mexican')">Mexican
+                </x-nav-link>
+                <x-nav-link href="#" :active="request()->routeIs('italian')">Italian
+                </x-nav-link>
+                <x-nav-link href="#" :active="request()->routeIs('indian')">Indian
+                </x-nav-link>
 
-                <a href="#" @click="active = 'contact'">
-                    <h1 class="p-3 font-medium hover:text-indigo-400 transition duration-200"
-                        :class="active == 'contact'?'border-b-2 border-indigo-400 text-indigo-400':''">Contact</h1>
-                </a>
+                <x-nav-link href="#" :active="request()->routeIs('contact')">Contact
+                </x-nav-link>
 
                 <!-- Settings Dropdown -->
                 @if( Auth()->user())
@@ -232,6 +303,13 @@
                                     {{ __('Profile') }}
                                 </x-jet-dropdown-link>
 
+                                @if ( Auth()->user()->isAdmin())
+                                    <x-jet-dropdown-link href="{{ route('admin.dashboard') }}">
+                                        {{ __('Dashboard') }}
+                                    </x-jet-dropdown-link>
+
+                                @endif
+
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                     <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
                                         {{ __('API Tokens') }}
@@ -253,15 +331,15 @@
                         </x-jet-dropdown>
                     </div>
                 @else
-                    <x-jet-nav-link href="{{ route('login') }}" class="flex justify-center items-center gap-2"
-                                    :active="request()->routeIs('login')">
+                    <x-nav-link href="{{ route('login') }}" class="flex justify-center items-center gap-2"
+                                :active="request()->routeIs('login')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-180" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                         </svg>
                         {{__('Sign up') }}
-                    </x-jet-nav-link>
+                    </x-nav-link>
             @endif
             <!-- Nav links End -->
                 <!-- Search Button -->

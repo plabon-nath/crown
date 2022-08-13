@@ -2,5 +2,9 @@ https://merakiui.com/components/
 https://www.tailwindtoolbox.com/
 dashboard source https://github.com/tailwindcomponents/e-commerce
 
+google 0Auth 2.0
+client id: 365544800282-j141qn2lgsnm2qan2eqip0vtp51p7ntq.apps.googleusercontent.com
+client secret: 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
+
 
 _E0CE01BE744B8A1B3A56A21EFD887ADC.crownrestaurante.com. 10800 IN CNAME 4E19E2581626FF3EF36176B8FCAFC656.F772EC8D2A765D0E9F1701A932E1E823.38f0db9ef29020483020.sectigo.com.

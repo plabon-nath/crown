@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRuleToUserTable extends Migration
+class CreateAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddRuleToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('rule')->default(1);
+        Schema::create('attributes', function (Blueprint $table) {
+            $table->id();
+            $table->string('name','20');
+            $table->string('description', '100')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddRuleToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('rule')->default(1);
-        });
+        Schema::dropIfExists('attributes');
     }
 }

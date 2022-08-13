@@ -17,7 +17,7 @@ class isAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return Auth::check() && Auth::user()->rule === '999'
+        return Auth::check() && Auth::user()->role === '999'
             ?  $next($request)
             : redirect()->route('login');
     }
