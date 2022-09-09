@@ -10,11 +10,12 @@
         </svg>
     </summary>
 
+
     <form class="border-t border-gray-200 lg:border-t-0"  wire:submit.prevent="applyFilter">
         @csrf
             <legend class="block w-full px-5 py-3 text-sm font-medium bg-gray-50 dark:bg-gray-800">
                 <span class="flex justify-between">
-                    <span>Items</span>
+                    <span>Categories</span>
                     <i class="icofont-food-basket text-2xl text-orange-500 dark:text-teal-500"></i>
                 </span>
             </legend>
@@ -29,9 +30,9 @@
                                wire:model="category.{{ $c['id'] }}"
                                class="w-5 h-5 border-red-300 rounded"/>
 
-                        <label for="{{ $c['name'] }}" class="ml-3 text-sm font-medium">
-                            {{ $c['name'] }}
-                        </label>
+                               <label for="{{ $c['name'] }}" class="ml-3 text-sm font-medium">
+                                {{ $c['name'] }}
+                            </label>
                     </div>
 
                 @endforeach
@@ -56,7 +57,7 @@
                     <div class="flex items-center">
                         <input id="{{ $a['name'] }}"
                                type="checkbox" wire:model="attribute.{{ $a['id'] }}"
-                               value="{{ $a['id'] }}"
+                               value="{{ $a['id'] }}" wire:change="$emit('filter)"
                                class="w-5 h-5 border-red-300 rounded"/>
 
                         <label for="{{ $a['name'] }}" class="ml-3 text-sm font-medium">
@@ -71,8 +72,6 @@
                     </button>
                 </div>
             </div>
-
-
 
         <div class="flex justify-between px-5 py-3 border-t border-gray-200">
             <button  name="reset" type="button" wire:click="resetFilter"

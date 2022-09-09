@@ -34,10 +34,10 @@ class FoodCategory extends Model
         return self::where('status', true)->get();
     }
 
-    public function foodItems(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(FoodItems::class);
-    }
+    // public function foodItems(): \Illuminate\Database\Eloquent\Relations\HasMany
+    // {
+    //     return $this->hasMany(FoodItems::class);
+    // }
 
     public function note(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

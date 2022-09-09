@@ -24,6 +24,7 @@ Route::get('auth/google/callback', GoogleController::class.'@handleGoogleCallbac
 Route::get('/', \App\Http\Livewire\Guest\Pages\Home::class)->name('home');
 Route::get('/menu', \App\Http\Livewire\Guest\Pages\Menu::class)->name('menu');
 Route::get('/contact', \App\Http\Livewire\Guest\Pages\Contact::class)->name('contact');
+Route::get('/cart', \App\Http\Livewire\Guest\Pages\FoodCart::class)->name('cart');
 
 Route::group([
     'middleware'=>[ 'auth:sanctum','admin',config('jetstream.auth_session'),'verified'],

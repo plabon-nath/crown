@@ -1,18 +1,47 @@
-<section>
 
+<section x-data="{ 'showItemCard':false }" @keydown.esc="showItemCard=false">
     <div class="max-w-screen-xl px-4 py-12 mx-auto sm:px-6 lg:px-8">
+         <!-- session Message -->
+         <div class="relative ">
+            <div class="fixed bottom-4 right-2 z-50">
+                @if( session()->has('success'))
+                    <div
+                        class="border-2 border-green-400/50 bg-white dark:bg-gray-800 dark:text-gray-300 shadow-md p-2 my-1 rounded-lg"
+                        x-data="{ show: true }" x-show="show" wire:key="{{ ('showItemCard').random_int(3,8) }}"
+                        x-init="setTimeout(() => show = false, 3000)">
+    
+                        <p x-init="showItemCard=false">
+                            {{ session()->get('success') }}
+                        </p>
+    
+    
+                    </div>
+                @endif
+    
+            </div>
+        </div>
         <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:items-start">
+
+    
             <!-- sidebar / food category -->
-            <div class="lg:sticky lg:top-4">
-                <livewire:guest.components.category-sidebar/>
+            <div class="">
+                @livewire('guest.components.category-sidebar')
             </div>
 
+            <!-- food collections -->
             <div class="lg:col-span-3">
+                <div class="absolute backdrop-blur bg-gray-800 bg-opacity-25 top-[2rem] right-4 w-full h-full flex justify-center item-center"
+                     wire:loading >
+                   <p class="flex items-center justify-center mx-5 text-xl font-bold text-red-500 animate-ping ">
+                       Loading...
+                   </p>
+                </div>
                 <div class="flex items-center justify-between">
                     <p class="text-sm text-gray-500">
                         <span class="hidden sm:inline">Showing</span>
                         {{ $items->count()  }} of {{ $items->total() }} Items
                     </p>
+
 
                     <div class="ml-4">
                         <label for="SortBy" class="sr-only ">
@@ -32,13 +61,11 @@
 
                 <div
                     class="grid grid-cols-2 gap-2 mt-4 p-2 border border-gray-200 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+
                     @if($items->count()>0)
+
                     @foreach($items as $item)
                         <div class="flex flex-col border border-red-400/20">
-{{--                            <button type="button" name="serial" aria-describedby="Serial no."--}}
-{{--                                    class="absolute p-2 text-white bg-black rounded-full right-4 top-4">--}}
-{{--                                <span class=" text-semibold">{{__('28')}}</span>--}}
-{{--                            </button>--}}
                             <img loading="lazy" alt="{{__ ($item->name) }}"
                                 class="object-contain w-full h-56"
                                 src="{{ asset($item->image?'img/items/'.$item->image:'/img/foodImagePlaceholder.svg') }}"/>
@@ -55,16 +82,23 @@
                                         <i class="icofont-pound"></i>{{ $item->price}}
                                     </span>
                                     <span>
-                                        @if( $item->attribute == "meal")
+                                        @if( $item->attribute == "Meal")
+
                                             <span class="text-xl">
+                                                <i> meal</i>
                                                 <i class="icofont-soft-drinks"></i>
                                                 <i class="icofont-french-fries -ml-4"></i>
+                                            </span>
+                                            @else
+                                            <span class="text-md">
+                                                {{ $item->attribute}}
                                             </span>
                                        @endif
                                     </span>
                                 </p>
 
                                 <button name="add" type="button"
+                                    wire:click="showItem({{ $item->skuId }})"
                                         class="flex items-end justify-center w-full py-4 mt-4
                                         text-gray-800 bg-gradient-to-bl from-red-500/50 to-orange-400/50 hover:bg-gradient-to-br
                                         transition-all duration-100 rounded-sm" >
@@ -94,9 +128,16 @@
                 </div>
 
             </div>
+
+
+
         </div>
     </div>
+   
 </section>
+
+
+
 
 
 

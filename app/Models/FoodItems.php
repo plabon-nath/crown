@@ -20,13 +20,28 @@ class FoodItems extends Model
         'is_available',
     ];
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category()
     {
-        return $this->belongsTo(FoodCategory::class);
+        return $this->DB::table('food_categories')
+        ;
     }
     public function sku()
     {
         return $this->hasMany(SKU::class,'food_item_id');
+    }
+
+    public function getAttribute($key)
+    {
+        
+    }
+
+    public function scopedSearch($query)
+    {
+        return $this->where('name', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
+            ->orWhere('category_id', 'like', '%' . $query . '%')
+            ->orWhere('image', 'like', '%' . $query . '%')
+            ->orWhere('is_available', 'like', '%' . $query . '%');
     }
 
 }

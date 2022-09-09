@@ -30,8 +30,7 @@
 
         </div>
         <div class="px-4 text-gray-600 dark:text-gray-300 text-sm flex-wrap">
-            To place order <span class="text-red-400 text-semibold">Call Us</span> ( 01702332122 ) with the items number,
-            you like to order.
+            To place order <span class="text-red-400 text-semibold">Call Us</span> ( 01702332122 ) with the items you want to order.
         </div>
 
     </div>

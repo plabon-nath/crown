@@ -2,6 +2,10 @@
 
     <livewire:guest.components.page-heading :header="$header"/>
     <livewire:guest.components.products-collections/>
+    
+
+
+
 
 
 </div>

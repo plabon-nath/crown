@@ -1,5 +1,5 @@
-<div>
 
+<div>
     <div class="container">
         <!-- page header -->
         <div class="flex justify-between item-content">
@@ -192,20 +192,12 @@
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round"
-        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-</svg>
+                                             <path stroke-linecap="round" stroke-linejoin="round"
+                                             d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                                            </svg>
                                     </span>
                                     <div class="flex flex-row opacity-75 ">
-                                        {{ "regular" }}
-                                        <span class="px-2 flex flex-row items-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-  <path stroke-linecap="round" stroke-linejoin="round"
-        d="M15 9a2 2 0 10-4 0v5a2 2 0 01-2 2h6m-6-4h4m8 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-</svg>
-                                        {{"5.00"}}
-                                        </span>
+                                       
                                     </div>
                                 </div>
                             </td>

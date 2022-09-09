@@ -2,12 +2,10 @@
 
 namespace App\Http\Livewire\Admin\Pages;
 
-use App\Models\CategoryNote;
 use App\Models\FoodCategory;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use League\CommonMark\Util\ArrayCollection;
 use Livewire\Component;
+use Route;
 
 class Category extends Component
 {
@@ -79,15 +77,15 @@ class Category extends Component
     {
 
         $validated = $this->validate();
-        //dd($validated['notes']);
+
         $category = FoodCategory::create([
             'name' => $validated['form']['name'],
             'description' => $validated['form']['description'],
             'status' => $validated['form']['status'],
         ]);
-       // dd($category->id);
-        foreach ($validated['notes'] as $note) {
-            if ($note !== null) {
+
+        if ($validated['notes'] !== null) {
+             foreach ($validated['notes'] as $note) {
                 $category->note()->create([
                     'food_category_id' => $category->id,
                     'note' => $note,
@@ -98,7 +96,7 @@ class Category extends Component
 
         $this->reset();
         $this->emitTo('admin.components.food-category-table', 'refreshCategory');
-        return back()->with('success', 'Category created successfully');
+        return redirect(route('admin.category'))->with('success', 'Category created successfully');
 
     }
 

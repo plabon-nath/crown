@@ -99,43 +99,6 @@
                                 :active=" request()->routeIs('menu')">
                         {{ __('Menu') }}
                     </x-nav-link>
-                    <a href="#" @click="active = 'mexican'; navOpen = false">
-                        <h1 class="p-3 hover:text-indigo-400 transition duration-200"
-                            :class="active == 'mexican'?'border-b-2 border-indigo-400 text-indigo-400':''">Mexican
-                        </h1>
-                    </a>
-                    <a href="#" @click="active = 'italian'; navOpen = false">
-                        <h1 class="p-3 hover:text-indigo-400 transition duration-200"
-                            :class="active == 'italian'?'border-b-2 border-indigo-400 text-indigo-400':''">Italian
-                        </h1>
-                    </a>
-                    <a href="#" @click="active = 'indian'; navOpen = false">
-                        <h1 class="p-3 hover:text-indigo-400 transition duration-200"
-                            :class="active == 'indian'?'border-b-2 border-indigo-400 text-indigo-400':''">Indian
-                        </h1>
-                    </a>
-                    <a href="#" @click="active = 'burger'; navOpen = false">
-                        <h1 class="p-3 hover:text-indigo-400 transition duration-200"
-                            :class="active == 'burger'?'border-b-2 border-indigo-400 text-indigo-400':''">Burger
-                        </h1>
-                    </a>
-                    <a href="#" @click="active = 'pizza'; navOpen = false">
-                        <h1 class="p-3 hover:text-indigo-400 transition duration-200"
-                            :class="active == 'pizza'?'border-b-2 border-indigo-400 text-indigo-400':''">Pizza
-                        </h1>
-                    </a>
-                    <a href="#" @click="active = 'chicken-items'; navOpen = false">
-                        <h1 class="p-3 hover:text-indigo-400 transition duration-200"
-                            :class="active == 'chicken-items'?'border-b-2 border-indigo-400 text-indigo-400':''">Chicken
-                            Items
-                        </h1>
-                    </a>
-                    <a href="#" @click="active = 'side-orders'; navOpen = false">
-                        <h1 class="p-3 hover:text-indigo-400 transition duration-200"
-                            :class="active == 'side-orders'?'border-b-2 border-indigo-400 text-indigo-400':''">Side
-                            Orders
-                        </h1>
-                    </a>
 
                     <x-nav-link href="{{ route('contact') }}" @click="navOpen = false"
                                 :active=" request()->routeIs('contact')">
@@ -252,12 +215,6 @@
                 <x-nav-link href="{{ route('menu') }}" :active="request()->routeIs('menu')">
                     {{ __('Menu') }}
                 </x-nav-link>
-                <x-nav-link href="#" :active="request()->routeIs('mexican')">Mexican
-                </x-nav-link>
-                <x-nav-link href="#" :active="request()->routeIs('italian')">Italian
-                </x-nav-link>
-                <x-nav-link href="#" :active="request()->routeIs('indian')">Indian
-                </x-nav-link>
 
                 <x-nav-link href="{{ route('contact') }}" :active="request()->routeIs('contact')">
                     {{ __('Contact') }}
@@ -350,6 +307,18 @@
                     </svg>
                 </button>
 
+                <!-- Cart Button -->
+                <a  href="{{ route('cart') }}">
+                    <button type="button" class="pl-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                          </svg>
+                         <span class="absolute bottom-5 right-2">
+                           {{ Cart::count()}}
+                         </span>
+                    </button>
+                </a>
+
             </div>
 
         </div>
@@ -357,6 +326,7 @@
 </div>
 
 
+  
 <script>
     function nav() {
         return {

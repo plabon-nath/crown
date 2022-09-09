@@ -50,10 +50,6 @@
       },
      "servesCuisine": "Takeaway"
   }
-
-
-
-
     </script>
 
     <!-- Fonts -->
@@ -75,7 +71,6 @@
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
     @livewire('guest.components.navigation')
 
-
     <!-- Page Heading -->
     @if (isset($header))
         <header class="bg-white shadow-md  rounded w-3/4 mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -88,10 +83,10 @@
     </div>
 </div>
 @livewire('guest.components.footer')
-<!-- Back to top button -->
+<!-- Botton to top button -->
 <button type="button" data-mdb-ripple="true" data-mdb-ripple-color="light"
         class="inline-block p-3 bg-gradient-to-br from-pink-700 to-orange-400 hover:bg-gradient-to-bl bg-opacity-10 backdrop-blur-md hover:bg-opacity-95 text-white font-medium text-xs leading-tight uppercase rounded-full drop-shadow-xl focus:outline-none transition duration-150 ease-in-out bottom-5 right-5"
-        id="btn-back-to-top">
+        id="btn-btm-to-top">
     <svg aria-hidden="true" focusable="false" data-prefix="fas" class="w-4 h-4" role="img"
          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
         <path fill="currentColor"
@@ -107,15 +102,13 @@
         data-turbolinks-eval="false" data-turbo-eval="false"></script>
 @yield('jsAfterLoad')
 
-
-
-
 @include('cookie-consent::index')
 
 
 <script>
+
     // Get the button
-    var mybutton = document.getElementById("btn-back-to-top");
+    var mybutton = document.getElementById("btn-btm-to-top");
 
     // When the user scrolls down 20px from the top of the document, show the button
     window.onscroll = function () {
@@ -124,9 +117,10 @@
 
     function scrollFunction() {
         if (
-            document.body.scrollTop > 20 ||
-            document.documentElement.scrollTop > 20
-        ) {
+            document.body.scrollTop > 40 ||
+            document.documentElement.scrollTop > 40
+        )
+        {
             mybutton.style.display = "block";
         } else {
             mybutton.style.display = "none";
@@ -141,7 +135,7 @@
         document.documentElement.scrollTop = 0;
     }
 </script>
-</body>
 
+</body>
 
 </html>

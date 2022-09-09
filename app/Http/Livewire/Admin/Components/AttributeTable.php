@@ -13,6 +13,7 @@ class AttributeTable extends LivewireDatatable
      * @var string[]
      */
     protected $listeners = ['refreshAttributeTable' => '$refresh'];
+
     public function builder()
     {
         return Attribute::query();

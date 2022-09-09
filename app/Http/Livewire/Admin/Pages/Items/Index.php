@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Pages\Items;
 
 use App\Models\FoodItems;
+use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,7 +21,7 @@ class Index extends Component
     public function ChangeLimit($limit): void
     {
         $this->limit=$limit;
-       // $this->emit('refresh');
+       $this->emit('refresh');
     }
 
 
@@ -33,6 +34,7 @@ class Index extends Component
             ->layout('layouts.dash')
             ->with('items', FoodItems::with('category')->paginate($this->limit));
     }
+     
 
 
 }

@@ -8,12 +8,18 @@ use App\Models\FoodItems;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Concerns\ToArray;
 
 class Create extends Component
 {
     use WithFileUploads;
 
-    public $form = [];
+    public $form = [
+    'name'=>'',
+    'description'=>'',
+    'status'=> true,
+    'category'=>'',
+    ];
     public $image;
     public $prices = [' '];
     public $categories, $attributes, $attributes_selected;
@@ -63,14 +69,16 @@ class Create extends Component
     public function createItem()
     {
         $validated = $this->validate();
+        //dd($validated);
         $item=FoodItems::create([
             'name' => $validated['form']['name'],
-            'description' => $validated['form']['description'],
+            'description' => $validated['form']['description']? $validated['form']['description']:".",
             'image' => $this->uploadImage($validated['image'], 'items', $validated['form']['name']),
-            'category_id' => $validated['form']['category'],
+            'food_category_id' => $validated['form']['category'],
             'is_available' => $validated['form']['status'],
         ]);
-        return redirect()->route('admin.sku.create', $item->id)->with('success', 'Item created successfully');
+        $id=$item->toArray();
+        return redirect()->route('admin.sku.create', $id['id'])->with('success', 'Item created successfully');
     }
 
     /**
@@ -89,3 +97,4 @@ class Create extends Component
         return null;
     }
 }
+

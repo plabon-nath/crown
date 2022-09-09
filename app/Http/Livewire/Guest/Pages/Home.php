@@ -12,3 +12,4 @@ class Home extends Component
             ->layout('layouts.guest');
     }
 }
+
